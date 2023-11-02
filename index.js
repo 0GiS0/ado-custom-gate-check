@@ -9,7 +9,6 @@ app.use(express.json());
 
 app.post('/hook', async (req, res) => {
 
-
     //Check headers
     console.log(req.headers);
 
@@ -18,23 +17,31 @@ app.post('/hook', async (req, res) => {
 
     console.log(`Received webhook: ${JSON.stringify(req.body)}`);
 
+    let organization = req.headers['planurl'],
+        scopeIdentifier = req.headers['projectid'],
+        hubName = req.headers['hubname'],
+        planId = req.headers['planid'],
+        authtoken = req.headers['authtoken'];
+
     let environment = req.body.environment;
 
     if (environment == "dev") {
 
-        // Send Approval
-        const approval = {
-            "name": "TaskCompleted",
-            "taskId": taskId,
-            "jobId": jobId,
-            "result": "succeeded"
-        };
+        let approval = {
+            status: "approved",
+        }
+        res.status(200).send(approval);
+
     }
     else if (environment == "prod") {
         // Send Rejection
-    }
+        let approval = {
+            status: "rejected",
+        }
 
-    res.status(200).send('OK');
+        res.status(200).send(approval);
+    }    
+
 });
 
 app.listen(PORT, () => {
