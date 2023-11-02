@@ -15,8 +15,8 @@ stages:
     strategy:
       runOnce:
         deploy:
-        steps:
-        - script: echo Gate passed! 👍🏻 
+          steps:
+          - script: echo Gate passed! 👍🏻 
       
 - stage: Prod
   jobs:
@@ -26,6 +26,5 @@ stages:
     strategy:
       runOnce:
         deploy:
-        steps:
-        - script: echo Gate passed! 👍🏻 
-      
+          steps:
+          - script: echo Gate passed! 👍🏻        
