@@ -1,4 +1,7 @@
-trigger: push
+trigger:
+  branches:
+    include:
+      - main  
 
 pool:
   vmImage: ubuntu-latest
