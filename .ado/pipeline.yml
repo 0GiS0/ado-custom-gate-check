@@ -1,2 +1,28 @@
 trigger: push
 
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Dev
+  jobs:
+  - deployment:
+    displayName: Test Dev Gate
+    environment: dev
+    strategy:
+      runOnce:
+        deploy:
+        steps:
+        - script: echo Gate passed! 👍🏻 
+      
+- stage: Prod
+  jobs:
+  - deployment:
+    displayName: Test Prod Gate
+    environment: prod
+    strategy:
+      runOnce:
+        deploy:
+        steps:
+        - script: echo Gate passed! 👍🏻 
+      
