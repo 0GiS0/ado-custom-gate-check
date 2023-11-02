@@ -12,35 +12,27 @@ app.post('/hook', async (req, res) => {
     //Check headers
     console.log(req.headers);
 
-    let jobId = req.headers['jobid'],
-        taskId = req.headers['taskinstanceid'];
-
-    console.log(`Received webhook: ${JSON.stringify(req.body)}`);
-
-    let organization = req.headers['planurl'],
-        scopeIdentifier = req.headers['projectid'],
-        hubName = req.headers['hubname'],
-        planId = req.headers['planid'],
-        authtoken = req.headers['authtoken'];
+    // Check body
+    console.log(`Received: ${JSON.stringify(req.body)}`);
 
     let environment = req.body.environment;
 
+    // Depends on the environment, you can allow or reject the deployment
     if (environment == "dev") {
 
-        let approval = {
+        res.status(200).send({
             status: "approved",
-        }
-        res.status(200).send(approval);
+        });
 
     }
     else if (environment == "prod") {
-        // Send Rejection
-        let approval = {
-            status: "rejected",
-        }
 
-        res.status(200).send(approval);
-    }    
+        // Probably you want to check some conditions before approve the deployment
+
+        res.status(200).send({
+            status: "rejected",
+        });
+    }
 
 });
 
